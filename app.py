@@ -23,4 +23,5 @@ departure_date = st.date_input("Select preferred departure date", value=None)
 
 departure_time = st.time_input("Select preferred departure time", value=None)
 
-st.button("Check flights")
+if st.button("Check flights"):
+    st.write("EYY")
