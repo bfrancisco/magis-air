@@ -1,4 +1,5 @@
 CREATE DATABASE magis_air;
+\c magis_air
 CREATE TABLE city (
     name VARCHAR(255) NOT NULL PRIMARY KEY,
     country VARCHAR(255) NOT NULL 
