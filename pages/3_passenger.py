@@ -1,6 +1,8 @@
 import streamlit as st
 import datetime
 
+db = st.session_state["db"]
+
 h_col1, h_col2 = st.columns([5.5, 1], vertical_alignment="bottom")
 with h_col1:
     st.header("Passenger Details")

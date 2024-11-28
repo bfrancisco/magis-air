@@ -1,6 +1,8 @@
 import streamlit as st
 import datetime
 
+db = st.session_state["db"]
+
 # Filter flight schedules based on session_state data
 # sql query filter:
 #   - departure_date + 6days
