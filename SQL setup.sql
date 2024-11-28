@@ -66,35 +66,35 @@ CREATE TABLE flight_schedule (
     FOREIGN KEY (route_id) REFERENCES route(route_id)
 );
 
-INSERT INTO flight_schedule (departure_time, duration, departure_date, route_id) VALUES (
-    TIME '08:15:00', INTERVAL '2 Hours 15 Minutes', DATE '2024-11-30', 1
+INSERT INTO flight_schedule (departure_time, duration, flight_cost, departure_date, route_id) VALUES (
+    TIME '08:15:00', INTERVAL '2 Hours 15 Minutes', 1000, DATE '2024-11-30', 1
 );
 INSERT INTO flight_schedule (departure_time, duration, departure_date, route_id) VALUES (
-    TIME '13:30:00', INTERVAL '5 Hours', DATE '2024-12-01', 2
+    TIME '13:30:00', INTERVAL '5 Hours', 1000, DATE '2024-12-01', 2
 );
 INSERT INTO flight_schedule (departure_time, duration, departure_date, route_id) VALUES (
-    TIME '06:45:00', INTERVAL '8 Hours 30 Minutes', DATE '2024-12-02', 3
+    TIME '06:45:00', INTERVAL '8 Hours 30 Minutes', 1000, DATE '2024-12-02', 3
 );
 INSERT INTO flight_schedule (departure_time, duration, departure_date, route_id) VALUES (
-    TIME '10:00:00', INTERVAL '10 Hours 45 Minutes', DATE '2024-11-29', 4
+    TIME '10:00:00', INTERVAL '10 Hours 45 Minutes', 1000, DATE '2024-11-29', 4
 );
 INSERT INTO flight_schedule (departure_time, duration, departure_date, route_id) VALUES (
-    TIME '15:20:00', INTERVAL '3 Hours 10 Minutes', DATE '2024-12-03', 5
+    TIME '15:20:00', INTERVAL '3 Hours 10 Minutes', 1000, DATE '2024-12-03', 5
 );
 INSERT INTO flight_schedule (departure_time, duration, departure_date, route_id) VALUES (
-    TIME '19:45:00', INTERVAL '12 Hours 50 Minutes', DATE '2024-12-05', 6
+    TIME '19:45:00', INTERVAL '12 Hours 50 Minutes', 1000, DATE '2024-12-05', 6
 );
 INSERT INTO flight_schedule (departure_time, duration, departure_date, route_id) VALUES (
-    TIME '23:30:00', INTERVAL '4 Hours 20 Minutes', DATE '2024-12-07', 7
+    TIME '23:30:00', INTERVAL '4 Hours 20 Minutes', 1000, DATE '2024-12-07', 7
 );
 INSERT INTO flight_schedule (departure_time, duration, departure_date, route_id) VALUES (
-    TIME '04:00:00', INTERVAL '7 Hours', DATE '2024-11-28', 8
+    TIME '04:00:00', INTERVAL '7 Hours', 1000, DATE '2024-11-28', 8
 );
 INSERT INTO flight_schedule (departure_time, duration, departure_date, route_id) VALUES (
-    TIME '11:15:00', INTERVAL '6 Hours 45 Minutes', DATE '2024-12-06', 9
+    TIME '11:15:00', INTERVAL '6 Hours 45 Minutes', 1000, DATE '2024-12-06', 9
 );
 INSERT INTO flight_schedule (departure_time, duration, departure_date, route_id) VALUES (
-    TIME '17:50:00', INTERVAL '9 Hours 30 Minutes', DATE '2024-11-30', 10
+    TIME '17:50:00', INTERVAL '9 Hours 30 Minutes', 1000, DATE '2024-11-30', 10
 );
 
 
