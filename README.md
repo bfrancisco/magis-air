@@ -21,9 +21,9 @@ Prototype Web Application for Magis Air's booking system. Final requirement for 
     # macOS and Linux
     source .venv/bin/activate
     ```
-3. Install streamlit
+3. Install requirements
     ```
-    pip install streamlit
+    pip install -r requirements.txt
     ```
 4. Run the app locally
     ```
