@@ -31,63 +31,22 @@ for i in range(7):
     time_obj = datetime.time(hour=(st.session_state['pref_time'].hour + 2)%24, minute=st.session_state['pref_time'].minute)
     where2 = f"TIME'{time_obj}' <= departure_time"
     where3 = f"city_origin LIKE '{st.session_state['origin']}' AND city_destination LIKE '{st.session_state['destination']}'"
-    db_cols = "departure_time, arrival_time, flight_cost"
+    db_cols = "departure_time, arrival_time, flight_cost, flight_code"
     query.append(
-        db.query(f"SELECT {db_cols} FROM flight_schedule fs LEFT JOIN route rt ON fs.route_id = rt.route_id WHERE {where1} AND {where2} AND {where3}").to_dict()
+        db.query(f"SELECT {db_cols} FROM flight_schedule fs LEFT JOIN route rt ON fs.route_id = rt.route_id WHERE {where1} AND {where2} AND {where3}", ttl="1min").to_dict()
     )
 
-query[0]
-print(query[0].items())
-for k, v in query[0].items():
-    st.write(k)
-    st.write(v)
-
-clean_query = [[] for i in range(7)]
+clean_query = []
 for i in range(7):
-    
+    cq_lst = [{"departure_time" : None, "arrival_time" : None, "flight_cost" : None, "flight_code": None} for j in range(len(query[i]["departure_time"]))]
+
     for k, v_dict in query[i].items():
-        dct = {"departure_date" : None, "departure_time" : None, "arrival_time" : None, "flight_code" : None}
-        
-        for key in range(len(query[i]["departure_time"])):
-            dct[k]
-        
-    
-    v["departure_time"]["0"]
+        ind = 0
+        for grbg, v in v_dict.items():
+            cq_lst[ind][k] = v
+            ind += 1
 
-temp_query = [
-    [
-        {
-            "departure_date" : datetime.date(year=2024, month=1, day=1),
-            "departure_time" : datetime.time(hour=1, minute=30),
-            "arrival_time" : datetime.time(hour=3, minute=30),
-            "flight_code" : "ABC-001"
-        },
-        {
-            "departure_date" : datetime.date(year=2024, month=1, day=1),
-            "departure_time" : datetime.time(hour=3, minute=30),
-            "arrival_time" : datetime.time(hour=5, minute=30),
-            "flight_code" : "ABC-002"
-        },
-    ],
-    [
-        {
-            "departure_date" : datetime.date(year=2024, month=1, day=2),
-            "departure_time" : datetime.time(hour=4, minute=0),
-            "arrival_time" : datetime.time(hour=7, minute=0),
-            "flight_code" : "ABC-003"
-        },
-    ],
-    [
-        {
-            "departure_date" : datetime.date(year=2024, month=1, day=2),
-            "departure_time" : datetime.time(hour=4, minute=0),
-            "arrival_time" : datetime.time(hour=5, minute=0),
-            "flight_code" : "ABC-004"
-        },
-    ],
-    [],[],[],[],
-
-]
+    clean_query.append(cq_lst)
 
 h_col1, h_col2 = st.columns([5.5, 1], vertical_alignment="bottom")
 with h_col1:
@@ -101,7 +60,7 @@ tabs = st.tabs([f'{days[i]}, {(pref_date + datetime.timedelta(days=i)).strftime(
 
 for i in range(7):
     with tabs[i]:
-        db_day = temp_query[i]
+        db_day = clean_query[i]
 
         if len(db_day) == 0:
             st.write("😢 No available flights for this date.")

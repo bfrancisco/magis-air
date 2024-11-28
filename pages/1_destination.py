@@ -2,7 +2,7 @@ import streamlit as st
 import datetime
 
 db = st.session_state["db"]
-cities = db.query("SELECT name FROM city;", ttl="1hr")
+cities = db.query("SELECT name FROM city;", ttl="1min")
 
 def compute_time(a):
     "only accepts string formatted time (HH:MM)"

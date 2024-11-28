@@ -96,6 +96,9 @@ INSERT INTO flight_schedule (departure_time, duration, flight_cost, departure_da
 INSERT INTO flight_schedule (departure_time, duration, flight_cost, departure_date, route_id) VALUES (
     TIME '17:50:00', INTERVAL '9 Hours 30 Minutes', 1000, DATE '2024-11-30', 10
 );
+INSERT INTO flight_schedule (departure_time, duration, flight_cost, departure_date, route_id) VALUES (
+    TIME '09:15:00', INTERVAL '2 Hours 15 Minutes', 1000, DATE '2024-11-30', 1
+);
 
 
 CREATE TABLE passenger (
