@@ -1,5 +1,6 @@
 CREATE DATABASE magis_air;
 \c magis_air
+
 CREATE TABLE city (
     name VARCHAR(255) NOT NULL PRIMARY KEY,
     country VARCHAR(255) NOT NULL 
@@ -60,6 +61,7 @@ CREATE TABLE flight_schedule (
     arrival_time TIME GENERATED ALWAYS AS (departure_time + duration) STORED,
     duration INTERVAL NOT NULL,
     departure_date DATE NOT NULL,
+    flight_cost FLOAT(2) NOT NULL,
     route_id INT NOT NULL,
     FOREIGN KEY (route_id) REFERENCES route(route_id)
 );
@@ -101,7 +103,7 @@ CREATE TABLE passenger (
     name VARCHAR(255) NOT NULL,
     birth_date DATE NOT NULL,
     gender VARCHAR(6) NOT NULL,
-    CHECK (gender IN ('Male', 'Female'))
+    CHECK (gender IN ('Male', 'Female', 'Nonbinary', 'Prefer not to say'))
 );
 
 INSERT INTO passenger (name, birth_date, gender) VALUES ('John Smith', DATE '1985-06-15', 'Male');
@@ -125,26 +127,11 @@ CREATE TABLE booking (
     FOREIGN KEY (flight_code) REFERENCES flight_schedule(flight_code)
 );
 
-CREATE TABLE crew (
-    crew_id SERIAL NOT NULL UNIQUE PRIMARY KEY,
-    name VARCHAR(255) NOT NULL
-);
-
 CREATE TABLE additional_item(
     item_name VARCHAR(255) NOT NULL,
     booking_id INT NOT NULL,
     FOREIGN KEY (booking_id) REFERENCES booking(booking_id) ON DELETE CASCADE,
     PRIMARY KEY (item_name, booking_id)
-);
-
-CREATE TABLE booking_flight_schedule(
-    booking_id INT NOT NULL,
-    flight_code INT NOT NULL,
-    flight_type VARCHAR(255) NOT NULL,
-    flight_cost FLOAT(2) NOT NULL,
-    FOREIGN KEY (booking_id) REFERENCES booking(booking_id),
-    FOREIGN KEY (flight_code) REFERENCES flight_schedule(flight_code),
-    PRIMARY KEY (booking_id, flight_code)
 );
 
 CREATE TABLE booking_additional_item(
@@ -154,6 +141,11 @@ CREATE TABLE booking_additional_item(
     cost FLOAT(2) NOT NULL,
     FOREIGN KEY (booking_id, item_name) REFERENCES additional_item(booking_id, item_name) ON DELETE CASCADE,
     PRIMARY KEY (booking_id, item_name)
+);
+
+CREATE TABLE crew (
+    crew_id SERIAL NOT NULL UNIQUE PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE flight_schedule_crew (
