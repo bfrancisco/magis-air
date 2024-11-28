@@ -55,7 +55,7 @@ temp_query = [
 
 ]
 
-h_col1, h_col2 = st.columns([5.77, 1], vertical_alignment="bottom")
+h_col1, h_col2 = st.columns([5.5, 1], vertical_alignment="bottom")
 with h_col1:
     st.header("Available Flights")
 with h_col2:

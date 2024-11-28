@@ -1,7 +1,7 @@
 import streamlit as st
 import datetime
 
-h_col1, h_col2 = st.columns([5.77, 1], vertical_alignment="bottom")
+h_col1, h_col2 = st.columns([5.5, 1], vertical_alignment="bottom")
 with h_col1:
     st.header("Passenger Details")
 with h_col2:

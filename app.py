@@ -1,5 +1,8 @@
+import streamlit as st
 import datetime
 
+db = st.connection("postgresql", type="sql")
+st.session_state["db"] = db
 
 st.title("Magis Air ✈️")
 

@@ -1,11 +1,8 @@
 import streamlit as st
 import datetime
 
-temp_cities = [
-    "Manila",
-    "Gensan",
-    "Cebu",
-]
+db = st.session_state["db"]
+cities = db.query("SELECT name FROM city;", ttl="1hr")
 
 def compute_time(a):
     "only accepts string formatted time (HH:MM)"
@@ -17,12 +14,12 @@ orgn_col, dest_col = st.columns(2)
 with orgn_col:
     origin = st.selectbox(
         "Select origin",
-        (temp_cities),
+        (cities),
     )
 with dest_col:
     destination = st.selectbox(
         "Select destination",
-        (temp_cities),
+        (cities),
     )
 
 date_col, time_col = st.columns(2)
