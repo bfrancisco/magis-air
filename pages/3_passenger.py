@@ -23,6 +23,9 @@ gender = st.selectbox(
     ["Female", "Male", "Nonbinary", "Prefer not to say"],
 )
 
+st.divider()
+st.markdown("<p style='text-align: center;'>Additional Items</p>", unsafe_allow_html=True)
+
 if st.button("✅ Confirm", use_container_width=True):
     # put data to session_state
     st.switch_page("pages/4_booking.py")
