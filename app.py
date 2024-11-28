@@ -1,23 +1,16 @@
-import streamlit as st
 import datetime
+
+import streamlit as st
 
 st.title("Magis Air ✈️")
 
-temp_cities = [
-    "Manila",
-    "Gensan",
-    "Cebu",
-]
+db = st.connection("postgresql", type="sql")
 
-origin = st.selectbox(
-    "Select origin",
-    (temp_cities)
-)
+temp_cities = db.query("SELECT name FROM city;", ttl="1hr")
 
-destination = st.selectbox(
-    "Select destination",
-    (temp_cities)
-)
+origin = st.selectbox("Select origin", (temp_cities))
+
+destination = st.selectbox("Select destination", (temp_cities))
 
 departure_date = st.date_input("Select preferred departure date", value=None)
 
