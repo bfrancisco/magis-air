@@ -70,7 +70,7 @@ for i in range(7):
     days.append(days.pop(0))
 
 pref_date = st.session_state["pref_date"]
-tabs = st.tabs([f"{days[i]}, {(pref_date + datetime.timedelta(days=i)).strftime("%b")} {(pref_date + datetime.timedelta(days=i)).strftime("%d")}" for i in range(7)])
+tabs = st.tabs([f'{days[i]}, {(pref_date + datetime.timedelta(days=i)).strftime("%b %d")}' for i in range(7)])
 
 for i in range(7):
     with tabs[i]:
@@ -84,9 +84,9 @@ for i in range(7):
             with st.container(border=True):
                 cols = st.columns([4.7, 1, 1], vertical_alignment="center")
                 with cols[0]:
-                    st.write(f"✈️ **{st.session_state["origin"]} to {st.session_state["destination"]}**")
+                    st.write(f'✈️ **{st.session_state["origin"]} to {st.session_state["destination"]}**')
                     
-                    st.write(f"🕒 {db["departure_time"].strftime("%H:%M")} - {db["arrival_time"].strftime("%H:%M")} UTC")
+                    st.write(f'🕒 {db["departure_time"].strftime("%H:%M")} - {db["arrival_time"].strftime("%H:%M")} UTC')
                 with cols[-2]:
                     st.write("PHP 2,000.00")
                 with cols[-1]:
