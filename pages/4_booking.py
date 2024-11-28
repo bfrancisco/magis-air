@@ -1,3 +1,3 @@
 import streamlit as st
 
-st.write("booking info")
+st.write(st.session_state)

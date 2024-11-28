@@ -1,4 +1,3 @@
 import streamlit as st
 
-
-st.write("flight sched")
+st.write(st.session_state)

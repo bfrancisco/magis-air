@@ -1,3 +1,3 @@
 import streamlit as st
 
-st.write("passenger info")
+st.write(st.session_state)
