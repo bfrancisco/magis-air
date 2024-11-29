@@ -77,7 +77,7 @@ for i in range(7):
                     st.write("PHP 2,000.00")
                 with cols[-1]:
                     if st.button("🛫 Book", key=db_query["flight_code"]):
-                        # put relevant data to st.session_state
+                        st.session_state['flight_code'] = db_query["flight_code"]
                         st.switch_page("pages/3_passenger.py")
         
 

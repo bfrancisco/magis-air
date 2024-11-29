@@ -12,11 +12,11 @@ with h_col2:
 
 name_cols = st.columns(3) 
 with name_cols[0]:
-    st.text_input("Last name")
+    last_name = st.text_input("Last name")
 with name_cols[1]:
-    st.text_input("First name")
+    first_name = st.text_input("First name")
 with name_cols[2]:
-    st.text_input("Middle name")
+    middle_name = st.text_input("Middle name")
 
 birth_date = st.date_input("Birthdate", value=datetime.datetime(2004, 1, 1))
 
@@ -47,7 +47,22 @@ with item_container:
         display_item_input(i)
 
 if st.button("➡️ Proceed to Booking Confirmation", use_container_width=True):    
-    for i in range(st.session_state['item_rows']):
-        st.session_state[f'item_name_{i}'] = st.session_state[f'name_{i}']
-        st.session_state[f'item_kg_{i}'] = st.session_state[f'kg_{i}']
-    st.switch_page("pages/4_booking.py")
+    if first_name == "" or last_name == "" or middle_name == "":
+        pass
+    else:
+        st.session_state['first_name'] = first_name
+        st.session_state['last_name'] = last_name
+        st.session_state['middle_name'] = middle_name
+        st.session_state['birthdate'] = birth_date
+        st.session_state['gender'] = gender
+        st.session_state.pop('pref_date')
+        st.session_state.pop('pref_time')
+        valid_rows = 0
+        for i in range(st.session_state['item_rows']):
+            if st.session_state[f'name_{i}'] == "":
+                continue
+            st.session_state[f'item_name_{valid_rows}'] = st.session_state[f'name_{i}']
+            st.session_state[f'item_kg_{valid_rows}'] = st.session_state[f'kg_{i}']
+            valid_rows += 1
+        st.session_state['item_rows'] = valid_rows
+        st.switch_page("pages/4_booking.py")
