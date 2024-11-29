@@ -25,17 +25,29 @@ gender = st.selectbox(
     ["Female", "Male", "Nonbinary", "Prefer not to say"],
 )
 
-h_col1, h_col2 = st.columns([4.75, 1], vertical_alignment="bottom")
-with h_col1:
-    st.header("Additional Items")
-with h_col2:
-    if st.button("➕ Add Row"):
-        st.write("add")
+def display_item_input(index):
+    left, right = st.columns([5, 1])
+    left.text_input('Item name', key=f'name_{index}')
+    right.number_input('Weight in kg', key=f'kg_{index}', min_value=0)
 
-def add_item_input(btn_id):
-        itemname = st.text_input("Item name")
-    
+if 'item_rows' not in st.session_state:
+    st.session_state['item_rows'] = 1
 
-if st.button("✅ Confirm", use_container_width=True):
-    # put data to session_state
+def increase_rows():
+    st.session_state['item_rows'] += 1
+
+item_head_cols = st.columns([5, 1], vertical_alignment="bottom")
+item_head_cols[0].header("Additional Items")
+item_head_cols[1].button("➕ Add row", on_click=increase_rows)
+item_container = st.container()
+
+
+with item_container:
+    for i in range(st.session_state['item_rows']):
+        display_item_input(i)
+
+if st.button("➡️ Proceed to Booking Confirmation", use_container_width=True):    
+    for i in range(st.session_state['item_rows']):
+        st.session_state[f'item_name_{i}'] = st.session_state[f'name_{i}']
+        st.session_state[f'item_kg_{i}'] = st.session_state[f'kg_{i}']
     st.switch_page("pages/4_booking.py")

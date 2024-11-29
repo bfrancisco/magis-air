@@ -2,6 +2,8 @@ import streamlit as st
 
 db = st.session_state["db"]
 
+st.session_state
+
 st.header("Flight Booking Summary")
 
 st.write("Passenger: Jose Ramon William Munda III")
