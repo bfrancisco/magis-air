@@ -25,8 +25,16 @@ gender = st.selectbox(
     ["Female", "Male", "Nonbinary", "Prefer not to say"],
 )
 
-st.divider()
-st.markdown("<p style='text-align: center;'>Additional Items</p>", unsafe_allow_html=True)
+h_col1, h_col2 = st.columns([4.75, 1], vertical_alignment="bottom")
+with h_col1:
+    st.header("Additional Items")
+with h_col2:
+    if st.button("➕ Add Row"):
+        st.write("add")
+
+def add_item_input(btn_id):
+        itemname = st.text_input("Item name")
+    
 
 if st.button("✅ Confirm", use_container_width=True):
     # put data to session_state

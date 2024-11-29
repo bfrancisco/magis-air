@@ -79,5 +79,5 @@ for i in range(7):
                     if st.button("🛫 Book", key=db_query["flight_code"]):
                         # put relevant data to st.session_state
                         st.switch_page("pages/3_passenger.py")
-
+        
 
