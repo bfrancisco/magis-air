@@ -34,8 +34,12 @@ addtl_items_query = db.query("SELECT * FROM additional_item").to_dict()
 item_cnt = len(addtl_items_query["item_no"])
 
 addtl_items = {}
+item_names = []
+
+addtl_items_query
 for i in range(item_cnt):
     addtl_items[addtl_items_query["item_name"][i]] = addtl_items_query["cost"][i]
+    item_names.append(addtl_items_query["item_name"][i])
 
 # addtl_items = {
 #         "Additional Baggage Allowance (5kg)" : 237, 
@@ -66,6 +70,9 @@ if st.button("➡️ Proceed to Booking Confirmation", use_container_width=True)
             st.session_state[f'item_avail_{k}'] = st.session_state[f'avail_{k}']
             st.session_state[f'item_no_{k}'] = itm_no
             st.session_state[f'item_qty_{k}'] = st.session_state[f'qty_{k}']
+            st.session_state[f'item_price_{k}'] = st.session_state[f'price_{k}']
             itm_no += 1
+        st.session_state['item_count'] = item_cnt
+        st.session_state['item_names'] = item_names
         
         st.switch_page("pages/4_booking.py")

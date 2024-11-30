@@ -20,17 +20,12 @@ db_front = {
     "Arrival Time" : f'{flight_data["arrival_time"][0].strftime("%H:%M")} UTC',
     "Flight Cost" : f'PHP {"{:.2f}".format(flight_data["flight_cost"][0])}',
 }
-addtl_items = [
-        "Additional Baggage Allowance (5kg)", 
-        "Teriminal Fees", 
-        "Travel Insurance"
-    ]
 
-availed_items = {} # item : {cost : #, qty : #}
 
 total_cost = flight_data["flight_cost"][0]
 
-for itm in addtl_items:
+
+for itm in st.session_state['item_names']:
     if not st.session_state[f'item_avail_{itm}'] or st.session_state[f'item_qty_{itm}'] == 0:
         continue
     shrt_itm = "Addtl. Baggage Allowance" if itm == "Additional Baggage Allowance (5kg)" else itm
