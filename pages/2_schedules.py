@@ -29,7 +29,7 @@ query = []
 for i in range(7):
     where1 = f"DATE'{st.session_state['pref_date'] + datetime.timedelta(days=i)}' = departure_date"
     time_obj = datetime.time(hour=(st.session_state['pref_time'].hour + 2)%24, minute=st.session_state['pref_time'].minute)
-    where2 = f"TIME'{time_obj}' <= departure_time"
+    where2 = f"(TIME'{time_obj}' <= departure_time OR 0 != {i})"
     where3 = f"city_origin LIKE '{st.session_state['origin']}' AND city_destination LIKE '{st.session_state['destination']}'"
     db_cols = "departure_time, arrival_time, flight_cost, flight_code"
     query.append(

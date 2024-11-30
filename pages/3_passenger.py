@@ -25,30 +25,34 @@ gender = st.selectbox(
     ["Female", "Male", "Nonbinary", "Prefer not to say"],
 )
 
-def display_item_input(index):
-    left, right = st.columns([5, 1])
-    left.text_input('Item name', key=f'name_{index}')
-    right.number_input('Weight in kg', key=f'kg_{index}', min_value=0)
-
-if 'item_rows' not in st.session_state:
-    st.session_state['item_rows'] = 1
-
 def increase_rows():
     st.session_state['item_rows'] += 1
 
-item_head_cols = st.columns([5, 1], vertical_alignment="bottom")
-item_head_cols[0].header("Additional Items")
-item_head_cols[1].button("➕ Add row", on_click=increase_rows)
-item_container = st.container()
+st.header("Additional Items")
 
+addtl_items_query = db.query("SELECT * FROM additional_item").to_dict()
+item_cnt = len(addtl_items_query["item_no"])
 
-with item_container:
-    for i in range(st.session_state['item_rows']):
-        display_item_input(i)
+addtl_items = {}
+for i in range(item_cnt):
+    addtl_items[addtl_items_query["item_name"][i]] = addtl_items_query["cost"][i]
+
+# addtl_items = {
+#         "Additional Baggage Allowance (5kg)" : 237, 
+#         "Teriminal Fees" : 273, 
+#         "Travel Insurance" : 208,
+#     }
+
+for k, v in addtl_items.items():
+    col1, col2, col3, col4 = st.columns([0.8, 3.7, 1.2, 0.8], vertical_alignment="center")
+    col1.checkbox("Avail", key=f'avail_{k}')
+    col2.text_input("Description", key=f'desc_{k}', disabled=True, value=k)
+    col3.text_input("Price", key=f'price_{k}', disabled=True, value="PHP " + "{:.2f}".format(v))
+    col4.number_input("Quantity", min_value=0, key=f'qty_{k}')
 
 if st.button("➡️ Proceed to Booking Confirmation", use_container_width=True):    
     if first_name == "" or last_name == "" or middle_name == "":
-        pass
+        st.error("Please fill out all fields.", icon="🚨")
     else:
         st.session_state['first_name'] = first_name
         st.session_state['last_name'] = last_name
@@ -57,12 +61,11 @@ if st.button("➡️ Proceed to Booking Confirmation", use_container_width=True)
         st.session_state['gender'] = gender
         st.session_state.pop('pref_date')
         st.session_state.pop('pref_time')
-        valid_rows = 0
-        for i in range(st.session_state['item_rows']):
-            if st.session_state[f'name_{i}'] == "":
-                continue
-            st.session_state[f'item_name_{valid_rows}'] = st.session_state[f'name_{i}']
-            st.session_state[f'item_kg_{valid_rows}'] = st.session_state[f'kg_{i}']
-            valid_rows += 1
-        st.session_state['item_rows'] = valid_rows
+        itm_no = 1
+        for k, v in addtl_items.items():
+            st.session_state[f'item_avail_{k}'] = st.session_state[f'avail_{k}']
+            st.session_state[f'item_no_{k}'] = itm_no
+            st.session_state[f'item_qty_{k}'] = st.session_state[f'qty_{k}']
+            itm_no += 1
+        
         st.switch_page("pages/4_booking.py")

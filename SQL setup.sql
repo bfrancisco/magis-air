@@ -99,6 +99,15 @@ INSERT INTO flight_schedule (departure_time, duration, flight_cost, departure_da
 INSERT INTO flight_schedule (departure_time, duration, flight_cost, departure_date, route_id) VALUES (
     TIME '09:15:00', INTERVAL '2 Hours 15 Minutes', 1000, DATE '2024-11-30', 1
 );
+INSERT INTO flight_schedule (departure_time, duration, flight_cost, departure_date, route_id) VALUES (
+    TIME '01:00:00', INTERVAL '2 Hours', 1000, DATE '2024-12-01', 1
+);
+INSERT INTO flight_schedule (departure_time, duration, flight_cost, departure_date, route_id) VALUES (
+    TIME '13:00:00', INTERVAL '2 Hours', 1000, DATE '2024-12-01', 1
+);
+INSERT INTO flight_schedule (departure_time, duration, flight_cost, departure_date, route_id) VALUES (
+    TIME '20:00:00', INTERVAL '2 Hours', 1000, DATE '2024-12-01', 1
+);
 
 
 CREATE TABLE passenger (
@@ -130,20 +139,23 @@ CREATE TABLE booking (
     FOREIGN KEY (flight_code) REFERENCES flight_schedule(flight_code)
 );
 
-CREATE TABLE additional_item(
+CREATE TABLE additional_item (
+    item_no SERIAL NOT NULL UNIQUE PRIMARY KEY,
     item_name VARCHAR(255) NOT NULL,
-    booking_id INT NOT NULL,
-    FOREIGN KEY (booking_id) REFERENCES booking(booking_id) ON DELETE CASCADE,
-    PRIMARY KEY (item_name, booking_id)
+    cost FLOAT(2) NOT NULL
 );
+
+INSERT INTO additional_item (item_name, cost) VALUES ('Additional Baggage Allowance (5kg)', 237.0);
+INSERT INTO additional_item (item_name, cost) VALUES ('Terminal Fees', 273.0);
+INSERT INTO additional_item (item_name, cost) VALUES ('Travel Insurance', 208.0);
 
 CREATE TABLE booking_additional_item(
     booking_id INT NOT NULL,
-    item_name VARCHAR(255) NOT NULL, 
+    item_no INT NOT NULL, 
     qty INT NOT NULL,
-    cost FLOAT(2) NOT NULL,
-    FOREIGN KEY (booking_id, item_name) REFERENCES additional_item(booking_id, item_name) ON DELETE CASCADE,
-    PRIMARY KEY (booking_id, item_name)
+    FOREIGN KEY (booking_id) REFERENCES booking(booking_id) ON DELETE CASCADE,
+    FOREIGN KEY (item_no) REFERENCES additional_item(item_no) ON DELETE CASCADE,
+    PRIMARY KEY (booking_id, item_no)
 );
 
 CREATE TABLE crew (
