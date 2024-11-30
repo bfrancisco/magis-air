@@ -36,7 +36,6 @@ item_cnt = len(addtl_items_query["item_no"])
 addtl_items = {}
 item_names = []
 
-addtl_items_query
 for i in range(item_cnt):
     addtl_items[addtl_items_query["item_name"][i]] = addtl_items_query["cost"][i]
     item_names.append(addtl_items_query["item_name"][i])

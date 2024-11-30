@@ -112,7 +112,9 @@ INSERT INTO flight_schedule (departure_time, duration, flight_cost, departure_da
 
 CREATE TABLE passenger (
     passenger_id SERIAL NOT NULL UNIQUE PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
+    first_name VARCHAR(255) NOT NULL,
+    middle_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
     birth_date DATE NOT NULL,
     gender VARCHAR(6) NOT NULL,
     CHECK (gender IN ('Male', 'Female', 'Nonbinary', 'Prefer not to say'))

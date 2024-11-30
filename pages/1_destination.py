@@ -45,3 +45,7 @@ if st.button("**📃 Check available flights**", use_container_width=True):
         st.session_state["pref_time"] = departure_time
 
         st.switch_page("pages/2_schedules.py")
+
+st.subheader("Already have booked flights?")
+if st.button("**🛫 Check Flights Summary**"):
+    st.switch_page("pages/5_summary.py")
