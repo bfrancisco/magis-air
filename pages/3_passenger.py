@@ -30,7 +30,7 @@ def increase_rows():
 
 st.header("Additional Items")
 
-addtl_items_query = db.query("SELECT * FROM additional_item").to_dict()
+addtl_items_query = db.query("SELECT * FROM additional_item;").to_dict()
 item_cnt = len(addtl_items_query["item_no"])
 
 addtl_items = {}

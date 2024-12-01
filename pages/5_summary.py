@@ -2,6 +2,12 @@ import streamlit as st
 
 db = st.session_state["db"]
 
+head = st.columns(3)
+with head[0]:
+    if st.button("🔙 Return", use_container_width=True):
+        st.switch_page("pages/1_destination.py")
+
+
 name_cols = st.columns(3) 
 with name_cols[0]:
     last_name = st.text_input("Last name")
@@ -15,14 +21,14 @@ if st.button("📃 Show Booked Flights", use_container_width=True):
         st.error("Please fill out all fields.", icon="🚨")
     else:
         q_passenger_info = f"""
-        select pa.last_name as Last_Name, pa.first_name as First_Name, pa.middle_name as Middle_Name, pa.birth_date as Birthdate, pa.gender as Gender, bk.total_cost as Total_Cost
+        select distinct pa.last_name as Last_Name, pa.first_name as First_Name, pa.middle_name as Middle_Name, pa.birth_date as Birthdate, pa.gender as Gender, bk.booking_date as Booking_Date, bk.total_cost as Total_Cost
         from booking bk
         LEFT JOIN passenger pa ON bk.passenger_id=pa.passenger_id 
         WHERE pa.first_name='{first_name}' AND pa.middle_name='{middle_name}' AND pa.last_name='{last_name}';
         """
 
         q_trip_itinerary = f"""
-        select fs.flight_code as Flight_Code, co.name as Origin, cd as Destination, fs.departure_time as Departure, fs.arrival_time as Arrival, fs.duration as Duration, fs.flight_cost as Cost
+        select distinct fs.flight_code as Flight_Code, co.name as Origin, cd as Destination, fs.departure_time as Departure, fs.arrival_time as Arrival, fs.duration as Duration, fs.flight_cost as Cost
         from booking bk 
         LEFT JOIN passenger pa ON bk.passenger_id=pa.passenger_id 
         LEFT JOIN flight_schedule fs ON bk.flight_code=fs.flight_code 
@@ -34,7 +40,7 @@ if st.button("📃 Show Booked Flights", use_container_width=True):
         WHERE pa.first_name='{first_name}' AND pa.middle_name='{middle_name}' AND pa.last_name='{last_name}';
         """
         q_addtl_items = f"""
-        select ai.item_name as Description, bkai.qty as Qty, (ai.cost*bkai.qty) as Cost 
+        select distinct ai.item_name as Description, bkai.qty as Qty, (ai.cost*bkai.qty) as Cost 
         from booking bk 
         LEFT JOIN passenger pa ON bk.passenger_id=pa.passenger_id 
         LEFT JOIN booking_additional_item bkai ON bk.booking_id=bkai.booking_id

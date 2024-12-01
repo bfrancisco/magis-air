@@ -56,7 +56,6 @@ def create_book_item(booking_id, item_no, qty):
     db.query(f"INSERT INTO booking_additional_item (booking_id, item_no, qty) VALUES ({booking_id}, {item_no}, {qty});")
     st.write("Created booking_item data.")
 
-
 if st.button("✅ Confirm booking", use_container_width=True):
     # Create Passenger
     # Create Booking connecting to: passenger, flight_schedule
@@ -91,8 +90,14 @@ if st.button("✅ Confirm booking", use_container_width=True):
         st.success("✅ Flight Booked!")
         st.balloons()
 
-        if st.button("🛫 Book another flight", use_container_width=True):
-            for key in st.session_state.keys():
-                if key=='db': continue
-                del st.session_state[key]
-            st.switch_page("pages/1_destination.py")
+        # if st.button("🛫 Book another flight", use_container_width=True):
+        #     for key in st.session_state.keys():
+        #         if key=='db': continue
+        #         del st.session_state[key]
+        #     st.switch_page("pages/1_destination.py")
+
+if st.button("🛫 Book another flight", use_container_width=True):
+    for key in st.session_state.keys():
+        if key=='db': continue
+        del st.session_state[key]
+    st.switch_page("pages/1_destination.py")
