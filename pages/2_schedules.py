@@ -48,6 +48,9 @@ for i in range(7):
 
     clean_query.append(cq_lst)
 
+# query
+# clean_query
+
 h_col1, h_col2 = st.columns([5.5, 1], vertical_alignment="bottom")
 with h_col1:
     st.header("Available Flights")
@@ -74,7 +77,7 @@ for i in range(7):
                     
                     st.write(f'🕒 {db_query["departure_time"].strftime("%H:%M")} - {db_query["arrival_time"].strftime("%H:%M")} UTC')
                 with cols[-2]:
-                    st.write("PHP 2,000.00")
+                    st.write("PHP " + "{:.2f}".format(db_query["flight_cost"]))
                 with cols[-1]:
                     if st.button("🛫 Book", key=db_query["flight_code"]):
                         st.session_state['flight_code'] = db_query["flight_code"]
