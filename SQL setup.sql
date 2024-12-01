@@ -120,17 +120,6 @@ CREATE TABLE passenger (
     CHECK (gender IN ('Male', 'Female', 'Nonbinary', 'Prefer not to say'))
 );
 
-INSERT INTO passenger (name, birth_date, gender) VALUES ('John Smith', DATE '1985-06-15', 'Male');
-INSERT INTO passenger (name, birth_date, gender) VALUES ('Emily Davis', DATE '1992-03-22', 'Female');
-INSERT INTO passenger (name, birth_date, gender) VALUES ('Michael Johnson', DATE '1978-11-10', 'Male');
-INSERT INTO passenger (name, birth_date, gender) VALUES ('Sophia Martinez', DATE '2000-08-05', 'Female');
-INSERT INTO passenger (name, birth_date, gender) VALUES ('Daniel Kim', DATE '1990-12-30', 'Male');
-INSERT INTO passenger (name, birth_date, gender) VALUES ('Olivia Brown', DATE '1988-09-17', 'Female');
-INSERT INTO passenger (name, birth_date, gender) VALUES ('Ethan Wilson', DATE '2003-07-08', 'Male');
-INSERT INTO passenger (name, birth_date, gender) VALUES ('Isabella Lee', DATE '1995-05-25', 'Female');
-INSERT INTO passenger (name, birth_date, gender) VALUES ('Alexander Taylor', DATE '1982-02-13', 'Male');
-INSERT INTO passenger (name, birth_date, gender) VALUES ('Mia Clark', DATE '1999-04-18', 'Female');
-
 CREATE TABLE booking (
     booking_id SERIAL NOT NULL UNIQUE PRIMARY KEY,
     booking_date DATE NOT NULL,
