@@ -25,8 +25,14 @@ Prototype Web Application for Magis Air's booking system. Final requirement for 
     ```
     pip install -r requirements.txt
     ```
-4. Run the app locally
+4. Setup database
+    ```
+    \i 'SQL setup.sql'
+    \i 'add data.sql'
+    ```
+5. Run the app locally
     ```
     streamlit run app.py
     ```
+
 
