@@ -1,3 +1,5 @@
+\c magis_air
+
 INSERT INTO city (name, country) VALUES ('Cebu', 'Philippines');
 INSERT INTO city (name, country) VALUES ('Tokyo', 'Japan');
 INSERT INTO city (name, country) VALUES ('Paris', 'France');
