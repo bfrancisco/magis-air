@@ -2,9 +2,6 @@ import streamlit as st
 
 db = st.session_state["db"]
 
-st.toast('Flight booked!', icon='✅')
-st.balloons()
-
 head = st.columns(3)
 with head[0]:
     if st.button("🔙 Return", use_container_width=True):
@@ -24,26 +21,24 @@ if st.button("📃 Show Booked Flights", use_container_width=True):
         st.error("Please fill out all fields.", icon="🚨")
     else:
         q_passenger_info = f"""
-        select distinct pa.last_name as "Last Name", pa.first_name as "First Name", pa.middle_name as "Middle Name", pa.birth_date as "Birthdate", pa.gender as "Gender", bk.booking_date as "Booking Date", bk.total_cost as "Total Cost"
+        select distinct pa.last_name as "Last Name", pa.first_name as "First Name", pa.middle_name as "Middle Name", pa.birth_date as "Birthdate", pa.gender as "Gender"
         from booking bk
         LEFT JOIN passenger pa ON bk.passenger_id=pa.passenger_id 
         WHERE pa.first_name ILIKE '{first_name}' AND pa.middle_name ILIKE '{middle_name}' AND pa.last_name ILIKE '{last_name}';
         """
 
         q_trip_itinerary = f"""
-        select distinct fs.flight_code as "Flight Code", co.name as "Origin", cd as "Destination", fs.departure_time as "Departure", fs.arrival_time as "Arrival", fs.duration as "Duration", fs.flight_cost as "Cost"
+        select fs.flight_code as "Flight Code", co.name as "Origin", cd as "Destination", fs.departure_time as "Departure", fs.arrival_time as "Arrival", fs.duration as "Duration", fs.flight_cost as "Cost", bk.booking_date as "Passenger Booking Date", bk.total_cost as "Passenger Total Cost"
         from booking bk 
         LEFT JOIN passenger pa ON bk.passenger_id=pa.passenger_id 
         LEFT JOIN flight_schedule fs ON bk.flight_code=fs.flight_code 
         LEFT JOIN route rt ON fs.route_id=rt.route_id 
         LEFT JOIN city co ON rt.city_origin=co.name 
         LEFT JOIN city cd ON rt.city_destination=cd.name
-        LEFT JOIN booking_additional_item bkai ON bk.booking_id=bkai.booking_id
-        LEFT JOIN additional_item ai ON bkai.item_no=ai.item_no
         WHERE pa.first_name ILIKE '{first_name}' AND pa.middle_name ILIKE '{middle_name}' AND pa.last_name ILIKE '{last_name}';
         """
         q_addtl_items = f"""
-        select distinct ai.item_name as Description, bkai.qty as Qty, (ai.cost*bkai.qty) as Cost 
+        select ai.item_name as Description, bkai.qty as Qty, (ai.cost*bkai.qty) as Cost 
         from booking bk 
         LEFT JOIN passenger pa ON bk.passenger_id=pa.passenger_id 
         LEFT JOIN booking_additional_item bkai ON bk.booking_id=bkai.booking_id

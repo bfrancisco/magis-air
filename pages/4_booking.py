@@ -96,7 +96,9 @@ if st.button("✅ Confirm booking", use_container_width=True):
         #         if key=='db': continue
         #         del st.session_state[key]
         #     st.switch_page("pages/1_destination.py")
+    st.toast('Flight booked!', icon='✅')
     st.switch_page("pages/5_summary.py")
+
 
 if st.button("🛫 Book another flight", use_container_width=True):
     for key in st.session_state.keys():
