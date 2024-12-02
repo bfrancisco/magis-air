@@ -1,9 +1,7 @@
 # Magis Air ✈️
 Prototype Web Application for Magis Air's booking system. Final requirement for ADMU's CSCI 41: Information Management.
 
-<!-- <h3 align="center">
-    🧑‍💻 Visit the site: <a href="" target="_blank">Magis Air </a> 🧑‍💻
-</h3> -->
+**Note that this prototype is only tested in Windows 10/11.**
 
 # Installation
 1. Make a python virtual environment
@@ -30,9 +28,13 @@ Prototype Web Application for Magis Air's booking system. Final requirement for 
     \i 'SQL setup.sql'
     \i 'add data.sql'
     ```
-5. Run the app locally
+5. Setup `secrets.toml` file
+    - Rename `secrets.toml.example` to `secrets.toml`
+    - Add your postgres password in the said file.
+6. Run the app locally
     ```
     streamlit run app.py
     ```
+
 
 
