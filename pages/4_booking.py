@@ -7,8 +7,9 @@ db = st.session_state["db"]
 
 flight_data = db.query(f'SELECT departure_time, arrival_time, departure_date, flight_cost FROM flight_schedule WHERE flight_code = {st.session_state["flight_code"]}').to_dict()
 
+mddl_initial =  "" if st.session_state["middle_name"] == "" else st.session_state["middle_name"][0]
 db_front = {
-    "Name" : f'{st.session_state["last_name"]}, {st.session_state["first_name"]} {st.session_state["middle_name"][0]}.',
+    "Name" : f'{st.session_state["last_name"]}, {st.session_state["first_name"]} {mddl_initial}.',
     "Birthdate" : st.session_state["birthdate"].strftime("%B %d, %Y"),
     "Gender" : st.session_state["gender"],
     "Origin City" : st.session_state["origin"],
@@ -87,14 +88,15 @@ if st.button("✅ Confirm booking", use_container_width=True):
 
         session.commit()
 
-        st.success("✅ Flight Booked!")
-        st.balloons()
+        # st.success("✅ Flight Booked!")
+        # st.balloons()
 
         # if st.button("🛫 Book another flight", use_container_width=True):
         #     for key in st.session_state.keys():
         #         if key=='db': continue
         #         del st.session_state[key]
         #     st.switch_page("pages/1_destination.py")
+    st.switch_page("pages/5_summary.py")
 
 if st.button("🛫 Book another flight", use_container_width=True):
     for key in st.session_state.keys():

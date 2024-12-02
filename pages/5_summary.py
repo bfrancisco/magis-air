@@ -2,6 +2,9 @@ import streamlit as st
 
 db = st.session_state["db"]
 
+st.toast('Flight booked!', icon='✅')
+st.balloons()
+
 head = st.columns(3)
 with head[0]:
     if st.button("🔙 Return", use_container_width=True):
@@ -39,22 +42,22 @@ if st.button("📃 Show Booked Flights", use_container_width=True):
         LEFT JOIN additional_item ai ON bkai.item_no=ai.item_no
         WHERE pa.first_name='{first_name}' AND pa.middle_name='{middle_name}' AND pa.last_name='{last_name}';
         """
-        q_addtl_items = f"""
-        select distinct ai.item_name as Description, bkai.qty as Qty, (ai.cost*bkai.qty) as Cost 
-        from booking bk 
-        LEFT JOIN passenger pa ON bk.passenger_id=pa.passenger_id 
-        LEFT JOIN booking_additional_item bkai ON bk.booking_id=bkai.booking_id
-        LEFT JOIN additional_item ai ON bkai.item_no=ai.item_no
-        WHERE pa.first_name='{first_name}' AND pa.middle_name='{middle_name}' AND pa.last_name='{last_name}';
-        """
+        # q_addtl_items = f"""
+        # select distinct ai.item_name as Description, bkai.qty as Qty, (ai.cost*bkai.qty) as Cost 
+        # from booking bk 
+        # LEFT JOIN passenger pa ON bk.passenger_id=pa.passenger_id 
+        # LEFT JOIN booking_additional_item bkai ON bk.booking_id=bkai.booking_id
+        # LEFT JOIN additional_item ai ON bkai.item_no=ai.item_no
+        # WHERE pa.first_name='{first_name}' AND pa.middle_name='{middle_name}' AND pa.last_name='{last_name}';
+        # """
 
         passenger_info = db.query(q_passenger_info)
         trip_itinerary = db.query(q_trip_itinerary)
-        addtl_items = db.query(q_addtl_items)
+        # addtl_items = db.query(q_addtl_items)
 
         st.subheader("Passenger Info")
         passenger_info
         st.subheader("Trip Itinerary")
         trip_itinerary
-        st.subheader("Additional Items")
-        addtl_items
+        # st.subheader("Additional Items")
+        # addtl_items

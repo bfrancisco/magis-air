@@ -54,7 +54,7 @@ for k, v in addtl_items.items():
     col4.number_input("Quantity", min_value=0, key=f'qty_{k}')
 
 if st.button("➡️ Proceed to Booking Confirmation", use_container_width=True):    
-    if first_name == "" or last_name == "" or middle_name == "":
+    if first_name == "" or last_name == "":
         st.error("Please fill out all fields.", icon="🚨")
     else:
         st.session_state['first_name'] = first_name
